@@ -29,9 +29,9 @@ ContactsEditor is a macOS application built with **SwiftUI** that allows users t
 
 ## 4. Installation
 1. Clone the repository:  
-   ```bash
-   git clone https://github.com/carlneto/ContactsEditor.git
-````
+```bash
+git clone https://github.com/carlneto/ContactsEditor.git
+```
 
 2. Open `ContactsEditor.xcodeproj` in Xcode
 3. Build and run the project (⌘R)
