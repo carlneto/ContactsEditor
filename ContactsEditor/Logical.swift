@@ -45,13 +45,14 @@ struct ContactItem: Identifiable {
 // MARK: - Contact Manager
 
 @MainActor
-class ContactManager: ObservableObject {
-   @Published var contacts: [ContactItem] = []
-   @Published var isLoading = false
-   @Published var statusMessage = ""
-   @Published var hasError = false
-   @Published var showPreview = false
-   @Published var isProcessing = false
+@Observable
+class ContactManager {
+   var contacts: [ContactItem] = []
+   var isLoading = false
+   var statusMessage = ""
+   var hasError = false
+   var showPreview = false
+   var isProcessing = false
 
    nonisolated private let contactStore = CNContactStore()
 
@@ -62,12 +63,12 @@ class ContactManager: ObservableObject {
       }
    }
 
-   #if os(macOS)
+#if os(macOS)
    func requestAccess() async {
       // macOS não requer permissão de acesso aos contactos
       await loadContacts()
    }
-   #else
+#else
    func requestAccess() async {
       do {
          let granted = try await contactStore.requestAccess(for: .contacts)
@@ -82,7 +83,7 @@ class ContactManager: ObservableObject {
          hasError = true
       }
    }
-   #endif
+#endif
 
    static let keysToFetch: [CNKeyDescriptor] = [
       CNContactBirthdayKey,

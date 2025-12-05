@@ -3,8 +3,7 @@ import SwiftUI
 // MARK: - Views
 
 struct ContentView: View {
-   @StateObject private var contactManager = ContactManager()
-
+   @State private var contactManager = ContactManager()
    var body: some View {
       NavigationView {
          VStack(spacing: 0) {
@@ -33,7 +32,7 @@ struct ContentView: View {
 }
 
 struct HeaderView: View {
-   @ObservedObject var contactManager: ContactManager
+   var contactManager: ContactManager
    var body: some View {
       VStack(spacing: 16) {
          HStack {
@@ -53,7 +52,8 @@ struct HeaderView: View {
                Button("Pré-visualizar e Aplicar") {
                   contactManager.showPreview = true
                }
-               .buttonStyle(.borderedProminent)               .disabled(!contactManager.hasSelectedActions)
+               .buttonStyle(.borderedProminent)
+               .disabled(!contactManager.hasSelectedActions)
 
                Button("Recarregar") {
                   Task {
@@ -82,7 +82,7 @@ struct HeaderView: View {
 }
 
 struct ContactListView: View {
-   @ObservedObject var contactManager: ContactManager
+   var contactManager: ContactManager
    var body: some View {
       ScrollView {
          LazyVStack(spacing: 12) {
@@ -97,7 +97,7 @@ struct ContactListView: View {
 
 struct ContactRowView: View {
    let contact: ContactItem
-   @ObservedObject var contactManager: ContactManager
+   var contactManager: ContactManager
    var body: some View {
       VStack(alignment: .leading, spacing: 12) {
          // Contact name header
@@ -137,7 +137,7 @@ struct ContactRowView: View {
 struct PhoneRowView: View {
    let phone: PhoneNumberItem
    let contactId: String
-   @ObservedObject var contactManager: ContactManager
+   var contactManager: ContactManager
    var backgroundColor: Color {
       switch phone.action {
       case .skip: Color.clear
@@ -254,7 +254,7 @@ struct ActionButton: View {
 }
 
 struct PreviewView: View {
-   @ObservedObject var contactManager: ContactManager
+   var contactManager: ContactManager
    @Environment(\.dismiss) var dismiss
    var changedContacts: [ContactItem] {
       contactManager.contacts.filter { contact in
